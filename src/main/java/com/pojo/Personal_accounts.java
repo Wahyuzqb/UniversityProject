@@ -6,7 +6,7 @@ public class Personal_accounts {
     //    账户名称
     private String account;
     //    卡号
-    private int id_account;
+    private String id_account;
     //    卡密码
     private String account_password;
     //    激活时间
@@ -20,11 +20,11 @@ public class Personal_accounts {
         this.account = account;
     }
 
-    public int getId_account() {
+    public String getId_account() {
         return id_account;
     }
 
-    public void setId_account(int id_account) {
+    public void setId_account(String id_account) {
         this.id_account = id_account;
     }
 

@@ -4,17 +4,17 @@ import java.sql.Date;
 
 public class Personal_cards {
     //卡号
-    private int id_account;
+    private String id_account;
     //卡内余额
     private int car_balance;
     //开户时间
     private Date open_time;
 
-    public int getId_account() {
+    public String getId_account() {
         return id_account;
     }
 
-    public void setId_account(int id_account) {
+    public void setId_account(String id_account) {
         this.id_account = id_account;
     }
 
