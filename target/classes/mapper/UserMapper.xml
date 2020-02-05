@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDao">
+    <!--增加转账记录-->
+    <insert id="addTransMemory" parameterType="Transfers">
+        insert into transfers(datetime , myid , otherid , tr_money)
+        values(#{datetime} , #{myid} , #{otherid} , #{tr_money})
+    </insert>
+    <!--查询余额-->
+    <select id="userBalance" parameterType="java.lang.String" resultType="java.lang.String">
+         select card_balance from personal_cards where id_account=#{id_account}
+    </select>
+    <!--更改个人信息-->
+    <update id="changeUserInfo">
+        update personal_accounts
+        set account_password=#{account_password}
+        where id_account=#{id_account}
+    </update>
+    <!--查询密码是否正确-->
+    <select id="checkOldPWD" resultType="java.lang.String">
+        select id_account from Personal_accounts
+        where id_account=#{id_account} and account_password=#{oldpwd};
+    </select>
+    <!--更改密码-->
+    <update id="changePWD">
+        update Personal_accounts
+        set account_password=#{newpwd}
+        where id_account=#{id_account};
+    </update>
+    <!--查询余额-->
+    <select id="checkBalance" resultType="java.lang.String">
+        select card_balance from Personal_cards
+        where id_account=#{id_account}
+    </select>
+    <!--查询卡号-->
+    <select id="checkOtherid" resultType="java.lang.String">
+        select id_account from personal_cards
+        where id_account=#{otherid} and close_time is null
+    </select>
+    <!--余额增加-->
+    <update id="addMoney">
+        update personal_cards
+        set card_balance=card_balance+#{tr_money}
+        where id_account=#{otherid}
+    </update>
+    <!--余额减少-->
+    <update id="loseMoney">
+        update personal_cards
+        set card_balance=card_balance-#{tr_money}
+        where id_account=#{myid}
+    </update>
+</mapper>

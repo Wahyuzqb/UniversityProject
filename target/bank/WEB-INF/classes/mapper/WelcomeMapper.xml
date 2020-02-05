@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.WelcomeDao">
+    <!--插入未授权数据-->
+    <insert id="saveInAuth">
+        insert into personal_auth(account) values (#{account})
+    </insert>
+    <!--查询管理员是否许可开户-->
+    <select id="checkAuth" resultType="java.lang.Integer">
+        select isAuthorized from personal_auth a join personal_accounts b
+        on a.account=b.account where b.id_account=#{id_account}    </select>
+    <!--  查询是否存在用户  -->
+    <select id="checkUser" parameterType="java.lang.String" resultType="java.lang.String">
+    select * from Personal_accounts where id_account=#{id_account}
+    </select>
+    <!--查询用户密码是否正确-->
+    <select id="checkUserPassword" parameterType="Personal_accounts" resultType="java.lang.String">
+    select id_account from Personal_accounts where id_account=#{id_account} and account_password=#{account_password}
+    </select>
+    <!--新增账户信息-->
+    <insert id="saveUser" parameterType="Personal_accounts">
+        insert into Personal_accounts (account , id_account , account_password , active_time)
+        values(#{account} , #{id_account} , #{account_password} , #{active_time})
+    </insert>
+    <!--查询电话号码是否正确-->
+    <select id="checkUserTele" parameterType="Telephones" resultType="java.lang.String">
+        select id_account from telephones where id_account=#{id_account} and telephone=#{telephone}
+    </select>
+    <!--检查是否是该行卡号-->
+    <select id="checkBelongs" parameterType="java.lang.String" resultType="java.lang.String">
+        select id_account from telephones where id_account=#{id_account}
+    </select>
+    <!--登录检查-->
+    <select id="login" parameterType="Personal_accounts" resultType="java.lang.String">
+        select id_account from personal_accounts where account=#{account} and account_password=#{account_password}
+    </select>
+    <!--根据手机号检查账号-->
+    <select id="checkUserAccountByTele" parameterType="java.lang.String" resultType="java.lang.String">
+        select account from personal_accounts a LEFT JOIN telephones b
+        on a.id_account=b.id_account where telephone=#{telephone}
+    </select>
+</mapper>

@@ -1,6 +1,6 @@
 package com.pojo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Personal_accounts {
     //    账户名称
@@ -10,7 +10,7 @@ public class Personal_accounts {
     //    卡密码
     private String account_password;
     //    激活时间
-    private Date active_time;
+    private Timestamp active_time;
 
     public String getAccount() {
         return account;
@@ -36,11 +36,11 @@ public class Personal_accounts {
         this.account_password = account_password;
     }
 
-    public Date getActive_time() {
+    public Timestamp getActive_time() {
         return active_time;
     }
 
-    public void setActive_time(Date active_time) {
+    public void setActive_time(Timestamp active_time) {
         this.active_time = active_time;
     }
 

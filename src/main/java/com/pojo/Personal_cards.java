@@ -6,7 +6,7 @@ public class Personal_cards {
     //卡号
     private String id_account;
     //卡内余额
-    private int car_balance;
+    private int card_balance;
     //开户时间
     private Date open_time;
 
@@ -18,12 +18,12 @@ public class Personal_cards {
         this.id_account = id_account;
     }
 
-    public int getCar_balance() {
-        return car_balance;
+    public int getCard_balance() {
+        return card_balance;
     }
 
-    public void setCar_balance(int car_balance) {
-        this.car_balance = car_balance;
+    public void setCard_balance(int card_balance) {
+        this.card_balance = card_balance;
     }
 
     public Date getOpen_time() {
@@ -49,9 +49,12 @@ public class Personal_cards {
     public String toString() {
         return "Personal_cards{" +
                 "id_account（卡号）=" + id_account +
-                ", car_balance（卡内余额）=" + car_balance +
+                ", card_balance（卡内余额）=" + card_balance +
                 ", open_time（开户时间）=" + open_time +
                 ", close_time（销户时间）=" + close_time +
                 '}';
+    }
+
+    public Personal_cards() {
     }
 }

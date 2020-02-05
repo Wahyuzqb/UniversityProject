@@ -16,7 +16,7 @@ public class WelcomeController {
     private WelcomeService welcomeService;
 
     //注册账号
-    @RequestMapping(value = "regist")
+    @RequestMapping(value = "/regist")
     public ModelAndView register(HttpServletRequest request, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         String id_account = request.getParameter("id_account");
@@ -25,20 +25,20 @@ public class WelcomeController {
         int exists = welcomeService.checkUser(id_account);
         /*存在或不属于该行则无法重复注册*/
         if (exists == 0) {
-            mav.setViewName("error4regist");
+            mav.setViewName("oldJsp/error4regist");
         } else {
             /*不存在则可以继续操作*/
             /*将账户存入session*/
-            session.setAttribute("title", id_account);
+            session.setAttribute("id_account", id_account);
             session.setAttribute("account_password", account_password);
-            mav.setViewName("checkUserTele");
+            mav.setViewName("oldJsp/checkUserTele");
 
         }
         return mav;
     }
 
     //检查手机号归属
-    @RequestMapping("checkUserTele")
+    @RequestMapping("/checkUserTele")
     public ModelAndView checkUserTele(HttpServletRequest request, HttpSession session) {
         ModelAndView mav = new ModelAndView();
 
@@ -50,25 +50,32 @@ public class WelcomeController {
         if (is == 1) {
             session.setAttribute("teleMsg", new String("请先确认是在本行注册的手机号"));
             welcomeService.saveUser(id_account, account_password);
-            mav.setViewName("main");
+            mav.setViewName("/login");
         } else {
             session.setAttribute("teleMsg", new String("手机号错误，请重试！"));
-            mav.setViewName("checkUserTele");
+            mav.setViewName("oldJsp/checkUserTele");
         }
         return mav;
     }
 
-    @RequestMapping("login")
+    @RequestMapping("/login")
     public ModelAndView login(HttpServletRequest request, HttpSession session) {
         ModelAndView mav = new ModelAndView();
+        /*普通用户登录*/
         String telephone = request.getParameter("telephone");
         String account_password = request.getParameter("account_password");
         String id_account = null;
         if ((id_account = welcomeService.login(telephone, account_password)) != null) {
+            /*判断是否经过管理员许可开户*/
             session.setAttribute("id_account", id_account);
-            mav.setViewName("main");
+            if (welcomeService.checkAuth(id_account)) {
+                session.setAttribute("telephone", telephone);
+                mav.setViewName("success");
+            }else{
+                mav.setViewName("wait4manager");
+            }
         } else {
-            mav.setViewName("error4login");
+            mav.setViewName("oldJsp/error4login");
         }
         return mav;
     }

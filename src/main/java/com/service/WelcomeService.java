@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.UUID;
 
 @Service("welcomeService")
@@ -45,10 +46,14 @@ public class WelcomeService {
         /*使用UUID生成随机账户*/
         String account =
                 UUID.randomUUID().toString().replace("-", "").toLowerCase();
-        String time = dateFormat.format(System.currentTimeMillis());
+//        String time = dateFormat.format(System.currentTimeMillis());
         /*确定开户时间*/
-        java.sql.Date active_time = java.sql.Date.valueOf(time);
-        welcomeDao.saveUser(account, id_account, account_password, active_time);
+//        java.sql.Date active_time = java.sql.Date.valueOf(time);
+        java.sql.Date utilDate = new Date(System.currentTimeMillis());//util utilDate
+        Timestamp sqlDate = new Timestamp(utilDate.getTime());//uilt date转sql date
+        welcomeDao.saveUser(account, id_account, account_password, sqlDate);
+        welcomeDao.saveInAuth(account);
+
     }
 
     public int checkUserTele(String id_account, String telephone) {
@@ -63,12 +68,24 @@ public class WelcomeService {
 
     public String login(String telephone, String account_password) {
         String id_account = null;
-        if ((id_account = welcomeDao.login(telephone, account_password)) != null) {
-            /*1代表登录成功*/
-            return id_account;
-        } else {
-            /*0代表失败*/
+        String account = welcomeDao.checkUserAccountByTele(telephone);
+        if(account==null){
             return null;
+        }else {
+            if ((id_account = welcomeDao.login(account, account_password)) != null) {
+                /*1代表登录成功*/
+                return id_account;
+            } else {
+                /*0代表失败*/
+                return null;
+            }
         }
+    }
+
+    public boolean checkAuth(String id_account) {
+        if(welcomeDao.checkAuth(id_account)==0)
+            return false;
+        else
+            return true;
     }
 }
