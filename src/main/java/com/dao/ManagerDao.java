@@ -10,4 +10,10 @@ public interface ManagerDao {
     ArrayList queryAll();
 
     void changeAuthToOne(String account);
+
+    Integer checkAuthorized(String account);
+
+    Integer checkHasError(String account);
+
+    Integer checkPreSave(String account);
 }

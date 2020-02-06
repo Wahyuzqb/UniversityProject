@@ -10,7 +10,7 @@
     </select>
     <!--查询所有请求操作的用户信息-->
     <select id="queryAll" resultType="java.lang.String">
-        select account from personal_auth where isAuthorized='0'
+        select account from personal_auth where isAuthorized='0' or hasError='0' or preSave='0'
     </select>
     <!--更改用户权限-->
     <update id="changeAuthToOne">
@@ -18,4 +18,16 @@
         set isAuthorized=1
         where account=#{account}
     </update>
+    <!--检查是否需要开户-->
+    <select id="checkAuthorized" resultType="java.lang.Integer">
+        select isAuthorized from personal_auth where account=#{account}
+    </select>
+    <!--检查是否有报错-->
+    <select id="checkHasError" resultType="java.lang.Integer">
+        select hasError from personal_auth where account=#{account}
+    </select>
+    <!--检查是否需要预存项目-->
+    <select id="checkPreSave" resultType="java.lang.Integer">
+        select preSave from personal_auth where account=#{account}
+    </select>
 </mapper>

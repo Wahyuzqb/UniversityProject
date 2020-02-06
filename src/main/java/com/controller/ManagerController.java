@@ -3,7 +3,6 @@ package com.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.service.ManagerService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +21,28 @@ public class ManagerController {
 
     ModelAndView mav = new ModelAndView();
 
+    /*获取用户需求列表*/
+    @RequestMapping("/userNeeds")
+    public ModelAndView userNeeds(HttpServletRequest request,HttpSession session) {
+        String account = (String) session.getAttribute("account");
+        System.out.println(account+"----------");
+        if (managerService.isAuthorized(account) == 0)
+            request.setAttribute("isAuthorized", "0");
+        if (managerService.hasError(account) == 0)
+            request.setAttribute("hasError", "0");
+        if (managerService.preSave(account) == 0)
+            request.setAttribute("preSave", "0");
+        mav.setViewName("userNeeds");
+        return mav;
+    }
 
-    @RequestMapping("/jumpToUser4Active")
+    /*激活用户账户*/
+    @RequestMapping("/activeAccount")
     public ModelAndView changeAuthToDo(HttpSession session, HttpServletRequest request) {
         String account = (String) session.getAttribute("account");
         managerService.changeAuthToOne(account);
+        request.setAttribute("isAuthorized","1");
+        mav.setViewName("userNeeds");
         return mav;
     }
 
@@ -43,6 +59,7 @@ public class ManagerController {
         return mav;
     }
 
+    /*获取用户列表*/
     @RequestMapping("/getAuthority")
     public void getAuthority(HttpServletRequest request, HttpServletResponse response) {
         try {

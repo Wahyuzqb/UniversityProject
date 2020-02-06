@@ -25,4 +25,25 @@ public class ManagerService {
     public void changeAuthToOne(String account) {
         managerDao.changeAuthToOne(account);
     }
+
+    public int isAuthorized(String account) {
+        if (managerDao.checkAuthorized(account) == 0)
+            return 0;
+        else
+            return 1;
+    }
+
+    public int hasError(String account) {
+        if (managerDao.checkHasError(account) == 0)
+            return 0;
+        else
+            return 1;
+    }
+
+    public int preSave(String account) {
+        if (managerDao.checkPreSave(account) == 0)
+            return 0;
+        else
+            return 1;
+    }
 }
