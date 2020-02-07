@@ -2,12 +2,8 @@ package com.service;
 
 import com.dao.UserDao;
 import com.pojo.Transfers;
-import com.pojo.UserInfos;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserService {
@@ -69,5 +65,32 @@ public class UserService {
     public void addMoney(String myid, String otherid, String tr_money) {
         userDao.addMoney(otherid, tr_money);
         userDao.loseMoney(myid, tr_money);
+    }
+
+    public String queryTelephone(String id_account) {
+        return userDao.queryTelephone(id_account);
+    }
+
+    public String queryTelBalance(String telephone) {
+        return userDao.queryTelBalance(telephone).toString();
+    }
+
+    public Integer telIn(String id_account, String telephone, Integer telephone_in) {
+        try {
+            if (userDao.queryBalanceByTel(telephone) < telephone_in)
+                return 2;
+            else {
+                userDao.loseMoney(id_account, telephone_in.toString());
+                /*先减少金额，再充值*/
+                userDao.telIn(telephone, telephone_in);
+            }
+        } catch (Exception e) {
+            return 3;
+        }
+        return 1;
+    }
+
+    public void addTelMemory(Transfers trans) {
+        userDao.addTransMemory(trans);
     }
 }

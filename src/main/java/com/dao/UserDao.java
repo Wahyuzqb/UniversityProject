@@ -20,9 +20,17 @@ public interface UserDao {
 
     String checkOtherid(String otherid);
 
-    void loseMoney(@Param("myid")String myid, @Param("tr_money")String tr_money);
+    void loseMoney(@Param("myid") String myid, @Param("tr_money") String tr_money);
 
-    void addMoney(@Param("otherid")String otherid,@Param("tr_money") String tr_money);
+    void addMoney(@Param("otherid") String otherid, @Param("tr_money") String tr_money);
 
     void addTransMemory(Transfers trans);
+
+    String queryTelephone(String id_account);
+
+    Integer queryTelBalance(String telephone);
+
+    Integer queryBalanceByTel(String telephone);
+
+    void telIn(@Param("telephone") String telephone, @Param("telephone_in") Integer telephone_in);
 }

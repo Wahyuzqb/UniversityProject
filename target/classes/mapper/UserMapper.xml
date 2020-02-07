@@ -45,10 +45,30 @@
         set card_balance=card_balance+#{tr_money}
         where id_account=#{otherid}
     </update>
-    <!--余额减少-->
+    <!--根据卡号余额减少-->
     <update id="loseMoney">
         update personal_cards
         set card_balance=card_balance-#{tr_money}
         where id_account=#{myid}
+    </update>
+    <!--根据卡号查询手机号-->
+    <select id="queryTelephone" resultType="java.lang.String">
+        select telephone from telephones where id_account=#{id_account}
+    </select>
+    <!--根据手机号查询话费余额-->
+    <select id="queryTelBalance" resultType="java.lang.Integer">
+        select tel_balance from tel_cards where telephone=#{telephone}
+    </select>
+    <!--根据手机号查询余额-->
+    <select id="queryBalanceByTel" resultType="java.lang.Integer">
+        select card_balance from telephones a Join personal_cards b
+        on a.id_account=b.id_account
+        where a.telephone=#{telephone}
+    </select>
+    <!--给手机号充值余额-->
+    <update id="telIn">
+        update tel_cards
+        set tel_balance=tel_balance+#{telephone_in}
+        where telephone=#{telephone}
     </update>
 </mapper>

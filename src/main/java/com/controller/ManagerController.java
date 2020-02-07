@@ -20,12 +20,15 @@ public class ManagerController {
     private ManagerService managerService;
 
     ModelAndView mav = new ModelAndView();
+    private HttpServletRequest request;
+    private HttpSession session;
+    private HttpServletResponse response;
 
     /*获取用户需求列表*/
     @RequestMapping("/userNeeds")
-    public ModelAndView userNeeds(HttpServletRequest request,HttpSession session) {
+    public ModelAndView userNeeds() {
         String account = (String) session.getAttribute("account");
-        System.out.println(account+"----------");
+        System.out.println(account + "----------");
         if (managerService.isAuthorized(account) == 0)
             request.setAttribute("isAuthorized", "0");
         if (managerService.hasError(account) == 0)
@@ -38,16 +41,23 @@ public class ManagerController {
 
     /*激活用户账户*/
     @RequestMapping("/activeAccount")
-    public ModelAndView changeAuthToDo(HttpSession session, HttpServletRequest request) {
+    public ModelAndView changeAuthToDo() {
         String account = (String) session.getAttribute("account");
         managerService.changeAuthToOne(account);
-        request.setAttribute("isAuthorized","1");
+        request.setAttribute("isAuthorized", "1");
         mav.setViewName("userNeeds");
         return mav;
     }
 
+    /*反馈用户报错*/
+    @RequestMapping("/hasError")
+    public ModelAndView hasError() {
+
+        return mav;
+    }
+
     @RequestMapping("/login")
-    public ModelAndView login(HttpServletRequest request, HttpSession session) {
+    public ModelAndView login() {
         String manager_no = request.getParameter("admin_username");
         session.setAttribute("manager_no", manager_no);
         String manager_password = request.getParameter("admin_password");
@@ -61,7 +71,7 @@ public class ManagerController {
 
     /*获取用户列表*/
     @RequestMapping("/getAuthority")
-    public void getAuthority(HttpServletRequest request, HttpServletResponse response) {
+    public void getAuthority() {
         try {
             ArrayList lists = managerService.queryAll();
             JSONArray data = JSONArray.parseArray(JSON.toJSONString(lists));

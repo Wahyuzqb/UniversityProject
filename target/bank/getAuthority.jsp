@@ -15,7 +15,6 @@
     <th>权限获取</th>
 </tr>
 
-
 <%
     JSONArray json = JSON.parseArray(request.getAttribute("lists").toString());
     for (int i = 0; i < json.size(); i++) {

@@ -30,7 +30,7 @@
 <%
     if (request.getAttribute("hasError") == "0") {
 %>
-<form>
+<form action="admin/hasError">
     <div style="display: inline">用户报错</div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <button type="submit">等待纠正</button>
@@ -44,7 +44,7 @@
 <%
     if (request.getAttribute("preSave") == "0") {
 %>
-<form>
+<form action="admin/preSave">
     <div style="display: inline">预存款准备</div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <button type="submit">有预存准备</button>
