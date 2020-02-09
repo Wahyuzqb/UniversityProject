@@ -47,7 +47,7 @@
 <form action="admin/preSave">
     <div style="display: inline">预存款准备</div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    <button type="submit">有预存准备</button>
+    <button type="submit">查看预存细项</button>
 </form>
 <%} else { %>
 <form>

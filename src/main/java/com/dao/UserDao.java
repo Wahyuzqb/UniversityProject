@@ -33,4 +33,16 @@ public interface UserDao {
     Integer queryBalanceByTel(String telephone);
 
     void telIn(@Param("telephone") String telephone, @Param("telephone_in") Integer telephone_in);
+
+    String query4Water(String id_account);
+
+    Integer queryWaterBalance(String account2water);
+
+    void waterIn(@Param("telephone") String telephone, @Param("water_in") Integer water_in);
+
+    void addPreSave(@Param("id_account") String id_account, @Param("tr_money") Integer tr_money, @Param("deposit_type") String deposit_type, @Param("date") String date, @Param("location") String location);
+
+    void changePreSaveAuth(String id_account);
+
+    String queryAccountById(String id_account);
 }

@@ -20,13 +20,10 @@ public class ManagerController {
     private ManagerService managerService;
 
     ModelAndView mav = new ModelAndView();
-    private HttpServletRequest request;
-    private HttpSession session;
-    private HttpServletResponse response;
 
     /*获取用户需求列表*/
     @RequestMapping("/userNeeds")
-    public ModelAndView userNeeds() {
+    public ModelAndView userNeeds(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         String account = (String) session.getAttribute("account");
         System.out.println(account + "----------");
         if (managerService.isAuthorized(account) == 0)
@@ -41,7 +38,7 @@ public class ManagerController {
 
     /*激活用户账户*/
     @RequestMapping("/activeAccount")
-    public ModelAndView changeAuthToDo() {
+    public ModelAndView changeAuthToDo(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         String account = (String) session.getAttribute("account");
         managerService.changeAuthToOne(account);
         request.setAttribute("isAuthorized", "1");
@@ -56,9 +53,12 @@ public class ManagerController {
         return mav;
     }
 
+
+
     @RequestMapping("/login")
-    public ModelAndView login() {
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         String manager_no = request.getParameter("admin_username");
+        System.out.println(manager_no);
         session.setAttribute("manager_no", manager_no);
         String manager_password = request.getParameter("admin_password");
         if (managerService.login(manager_no, manager_password)) {
@@ -71,7 +71,7 @@ public class ManagerController {
 
     /*获取用户列表*/
     @RequestMapping("/getAuthority")
-    public void getAuthority() {
+    public void getAuthority(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         try {
             ArrayList lists = managerService.queryAll();
             JSONArray data = JSONArray.parseArray(JSON.toJSONString(lists));

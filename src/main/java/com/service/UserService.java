@@ -93,4 +93,40 @@ public class UserService {
     public void addTelMemory(Transfers trans) {
         userDao.addTransMemory(trans);
     }
+
+    public String query4Water(String id_account) {
+        return userDao.query4Water(id_account);
+    }
+
+    public String queryWaterBalance(String account2water) {
+        return userDao.queryWaterBalance(account2water).toString();
+    }
+
+    public Integer waterIn(String id_account, String telephone, Integer water_in) {
+        try {
+            if (userDao.queryBalanceByTel(telephone) < water_in)
+                return 2;
+            else {
+                userDao.loseMoney(id_account, water_in.toString());
+                /*先减少金额，再充值*/
+                userDao.waterIn(telephone, water_in);
+            }
+        } catch (Exception e) {
+            return 3;
+        }
+        return 1;
+    }
+
+    public void addWaterMemory(Transfers trans) {
+        userDao.addTransMemory(trans);
+    }
+
+    public void addPreSave(String id_account, Integer tr_money, String deposit_type, String date, String location) {
+        userDao.addPreSave(id_account,tr_money,deposit_type,date,location);
+    }
+
+    public void changePreSaveAuth(String id_account) {
+        String account =userDao.queryAccountById(id_account);
+        userDao.changePreSaveAuth(account);
+    }
 }

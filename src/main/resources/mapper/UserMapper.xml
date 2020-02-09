@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.UserDao">
+    <select id="queryAccountById" resultType="java.lang.String">
+        select account from personal_accounts
+        where id_account=#{id_account}
+    </select>
     <!--增加转账记录-->
     <insert id="addTransMemory" parameterType="Transfers">
         insert into transfers(datetime , myid , otherid , tr_money)
@@ -70,5 +74,32 @@
         update tel_cards
         set tel_balance=tel_balance+#{telephone_in}
         where telephone=#{telephone}
+    </update>
+    <!--根据卡号查询是否开通水费充值服务-->
+    <select id="query4Water" resultType="java.lang.String">
+        select account2water from telephones a join water_cards b
+            on a.telephone=b.telephone
+            where a.id_account=#{id_account}
+    </select>
+    <!--根据水费账号查询水费-->
+    <select id="queryWaterbalance" resultType="java.lang.Integer">
+        select water_balance from water_cards where account2water=#{account2water}
+    </select>
+    <!--充值水费-->
+    <update id="water_in">
+        update water_cards
+        set water_balance=water_balance+#{water_in}
+        where telephone=#{telephone}
+    </update>
+    <!--预存款准备-->
+    <insert id="addPreSave">
+        insert into preSaves(id_account , tr_money ,deposit_type, save_time , location)
+        values(#{id_account} , #{tr_money} , #{deposit_type},#{date} , #{location})
+    </insert>
+    <!--提交预存款请求-->
+    <update id="changePreSaveAuth">
+        update personal_auth
+        set preSave=0
+        where account =#{account}
     </update>
 </mapper>

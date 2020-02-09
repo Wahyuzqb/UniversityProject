@@ -32,7 +32,7 @@
                         <img width="9" height="9" src="images/menu_icon.gif">
                     </td>
                     <td>
-                        <a id="menuChild" style="font-size: 13px" href="/withdraw.jsp" target="main">线下预约存款</a>
+                        <a id="menuChild" style="font-size: 13px" href="/deposit.jsp" target="main">线下预约存款</a>
                     </td>
                 </tr>
                 <tr height="20">
