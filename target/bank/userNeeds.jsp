@@ -16,7 +16,7 @@
 <%
     if (request.getAttribute("isAuthorized") == "0") {
 %>
-<form action="/admin/activeAccount">
+<form action="/adminManager/activeAccount">
     <div style="display: inline">账户状态</div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <button type="submit">等待开户</button>
@@ -30,7 +30,7 @@
 <%
     if (request.getAttribute("hasError") == "0") {
 %>
-<form action="admin/hasError">
+<form action="adminManager/hasError">
     <div style="display: inline">用户报错</div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <button type="submit">等待纠正</button>
@@ -44,10 +44,10 @@
 <%
     if (request.getAttribute("preSave") == "0") {
 %>
-<form action="admin/preSave">
+<form action="adminManager/preSave">
     <div style="display: inline">预存款准备</div>
     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-    <button type="submit">有预存准备</button>
+    <button type="submit">查看预存细项</button>
 </form>
 <%} else { %>
 <form>

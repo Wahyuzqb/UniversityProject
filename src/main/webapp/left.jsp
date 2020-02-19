@@ -68,14 +68,15 @@
                            href="http://localhost:8080/userManager/checkUserBalance" target="main">查看个人信息</a>
                     </td>
                 </tr>
-                <%--                    <tr height="20">--%>
-                <%--                        <td width="30" align="center">--%>
-                <%--                           <img width="9" height="9" src="images/menu_icon.gif"> --%>
-                <%--                        </td>--%>
-                <%--                        <td> --%>
-                <%--                            <a id="menuChild" style="font-size: 13px" href="/modify.jsp" target="main">修改个人信息</a>--%>
-                <%--                        </td>--%>
-                <%--                    </tr>--%>
+                <tr height="20">
+                    <td width="30" align="center">
+                        <img width="9" height="9" src="images/menu_icon.gif">
+                    </td>
+                    <td>
+                        <a id="menuChild" style="font-size: 13px"
+                           href="/userManager/InAndOut" target="main">查看消费收支</a>
+                    </td>
+                </tr>
                 <tr height="20">
                     <td width="30" align="center">
                         <img width="9" height="9" src="images/menu_icon.gif">

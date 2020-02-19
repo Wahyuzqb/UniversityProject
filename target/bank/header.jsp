@@ -21,6 +21,8 @@
             当前用户：<%=request.getSession().getAttribute("id_account")%>
 
             <span id="now"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span><a id="menuChild" style="font-size: 13px; color:white; font-weight: bold;" href="/userManager/queryLeaves"
+                     target="main">留言</a></span>
             <span><a id="menuChild" style="font-size: 13px; color:white; font-weight: bold;" href="/userManager/user_logout"
                      target="_top">注销</a></span>
         </td>

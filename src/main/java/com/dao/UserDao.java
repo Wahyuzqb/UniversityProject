@@ -45,4 +45,14 @@ public interface UserDao {
     void changePreSaveAuth(String id_account);
 
     String queryAccountById(String id_account);
+
+    String queryLeaves(String account);
+
+    List<Transfers> queryOut(String id_account);
+
+    List<Transfers> queryIn(String id_account);
+
+    List<Integer> queryOutMoneyById(String id_account);
+
+    List<Integer> queryInMoneyById(String id_account);
 }

@@ -102,4 +102,24 @@
         set preSave=0
         where account =#{account}
     </update>
+    <!--根据账号查询留言-->
+    <select id="queryLeaves" resultType="java.lang.String">
+        select leaves from message where account=#{account}
+    </select>
+    <!--根据id查询支出消息-->
+    <select id="queryOut" resultType="Transfers">
+        select * from transfers where myid=#{id_account}
+    </select>
+    <!--根据id查询收入消息-->
+    <select id="queryIn" resultType="Transfers">
+        select * from transfers where otherid=#{id_account}
+    </select>
+    <!--查询支出-->
+    <select id="queryOutMoneyById" resultType="java.lang.Integer">
+        select tr_money from transfers where myid=#{id_account}
+    </select>
+    <!--查询收入-->
+    <select id="queryInMoneyById" resultType="java.lang.Integer">
+        select tr_money from transfers where otherid=#{id_account}
+    </select>
 </mapper>

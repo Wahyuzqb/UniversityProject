@@ -30,4 +30,35 @@
     <select id="checkPreSave" resultType="java.lang.Integer">
         select preSave from personal_auth where account=#{account}
     </select>
+    <!--根据账户查询预存信息-->
+    <select id="queryPreSaves" resultType="PreSaves">
+       select * from preSaves where id_account=#{id_account}
+    </select>
+    <!--将预存消息处理后删除-->
+    <delete id="agreeToPreSave">
+        delete from preSaves where id=#{id}
+    </delete>
+    <delete id="disagreeToPreSave">
+        delete from preSaves where id=#{id}
+    </delete>
+    <!--发送消息-->
+    <insert id="sendMessage">
+        insert into message(account,leaves) values
+        (#{account},#{leaves})
+    </insert>
+    <!--检查是否有残余请求-->
+    <select id="check4otherAsk" resultType="java.lang.String">
+        select id_account from preSaves where id_account=#{id_account}
+    </select>
+    <!--预存权限置1-->
+    <update id="setPreSaveTo1">
+        update personal_auth
+        set preSave=1
+        where account=#{account}
+    </update>
+    <!--根据account查找id_account-->
+    <select id="queryIdByAccount" resultType="java.lang.String">
+        select id_account from personal_accounts
+        where account=#{account}
+    </select>
 </mapper>

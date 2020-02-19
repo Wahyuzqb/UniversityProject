@@ -17,7 +17,7 @@ response.setCharacterEncoding("utf-8");
 </head>
 <body>
 <%
-    request.getRequestDispatcher("/admin/userNeeds").forward(request,response);
+    request.getRequestDispatcher("/adminManager/userNeeds").forward(request,response);
 %>
 </body>
 </html>

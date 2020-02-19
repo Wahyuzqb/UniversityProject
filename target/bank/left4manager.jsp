@@ -24,7 +24,7 @@
                         <img width="9" height="9" src="images/menu_icon.gif">
                     </td>
                     <td>
-                        <a id="menuChild" style="font-size: 13px" href="http://localhost:8080/admin/getAuthority" target="main">获取权限</a>
+                        <a id="menuChild" style="font-size: 13px" href="http://localhost:8080/adminManager/getAuthority" target="main">获取权限</a>
                     </td>
                 </tr>
             </table>

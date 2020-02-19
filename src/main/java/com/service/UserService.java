@@ -5,6 +5,8 @@ import com.pojo.Transfers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -128,5 +130,50 @@ public class UserService {
     public void changePreSaveAuth(String id_account) {
         String account =userDao.queryAccountById(id_account);
         userDao.changePreSaveAuth(account);
+    }
+
+    public String queryAccountById(String id_account) {
+        return userDao.queryAccountById(id_account);
+    }
+
+    public String queryLeaves(String account) {
+        return userDao.queryLeaves(account);
+    }
+
+    public List<Transfers> queryOut(String id_account) {
+        return userDao.queryOut(id_account);
+    }
+
+    public List<Transfers> queryIn(String id_account) {
+        return userDao.queryIn(id_account);
+    }
+
+    public Integer queryOutMoneyById(String id_account) {
+        List<Integer> out = userDao.queryOutMoneyById(id_account);
+        Integer money_out=0;
+        for (Integer i :
+                out) {
+            money_out+=i;
+        }
+        return money_out;
+    }
+
+    public Integer queryInMoneyById(String id_account)
+    {
+        Integer money_in=0;
+        List<Integer> in = userDao.queryInMoneyById(id_account);
+        for (Integer i :
+                in) {
+            money_in+=i;
+        }
+        return money_in;
+    }
+
+    public List<Integer> queryOutMoneyListById(String id_account) {
+        return userDao.queryOutMoneyById(id_account);
+    }
+
+    public List<Integer> queryInMoneyListById(String id_account) {
+        return userDao.queryInMoneyById(id_account);
     }
 }

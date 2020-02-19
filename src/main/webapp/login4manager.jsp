@@ -23,7 +23,7 @@
             document.getElementById("password1").style.display = "none";
             document.getElementById("username2").style.display = "block";
             document.getElementById("password2").style.display = "block";
-            document.myform.action = "/admin/login"
+            document.myform.action = "/adminManager/login"
         }
 
         function init() {
